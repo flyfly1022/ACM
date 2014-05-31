@@ -1,0 +1,49 @@
+
+/*
+ *  Programe: 488-Triangle Wave
+ *  Coder: FRESH_Q
+ *  Date: MAY 31, 2014
+ */
+
+#include <stdio.h>
+#include <string.h>
+#include <ctype.h>
+
+
+int main()
+{
+    int nCase;
+    int amp, freq;
+    scanf("%d", &nCase);
+
+    while(nCase > 0 && (scanf("%d%d", &amp, &freq) != EOF))
+    {
+        int i, j, k;
+        for (k = 0; k < freq; k++){
+            for (i = 1; i <=amp; i++)
+            {
+                for (j = 1; j<=i; j++)
+                {
+                    printf("%d",i);
+                }
+                printf("\n");
+            }
+            
+            for (i = amp - 1; i > 0; i--)
+            {
+                for (j = 1; j<=i; j++)
+                {
+                    printf("%d",i);
+                }
+                printf("\n");
+            }
+            
+            if (k+1 < freq) printf("\n");
+        }
+        nCase--;
+        if (nCase >0 ) printf("\n");
+    }
+   
+   return 0;
+}
+
