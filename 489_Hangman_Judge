@@ -1,0 +1,75 @@
+
+/*
+ *  Programe: 489 - Hangman Judge
+ *  Coder: FRESH_Q
+ *  Date: MAY 31, 2014
+ */
+
+#include <stdio.h>
+#include <string.h>
+
+#define WIN "You win.\n"
+#define CHICKEN_OUT "You chickened out.\n"
+#define LOSE "You lose.\n"
+
+char guess[100];
+char answer[100];
+char guessed[100];
+int main()
+{
+    
+    int round = 0;
+    int i, j;
+    char c;
+
+    while(scanf("%d", &round) && round != -1)
+    {
+        guessed[0] = '\0';
+        int n = 0;  /* this is for guessed count */
+        int guessWrong = 0;
+        int guessRight = 0;
+        
+        /* Get the input */
+        i = 0;
+        getchar();  /* skip the '\n' after the round number */
+        while(scanf("%c", &c) && c != '\n') answer[i++] = c;
+        answer[i] = '\0';
+        
+        i = 0;
+        while(scanf("%c", &c) && c != '\n') guess[i++] = c;
+        guess[i] = '\0';
+        
+        /* Process the guess */
+        long lenOfGue = strlen(guess);
+        long lenOfAns = strlen(answer);
+        for (i = 0; i < lenOfGue; i++)
+        {
+            if (strchr(answer, guess[i]) == NULL) guessWrong++;
+            else
+            {
+                /* if not guessed before */
+                if(strchr(guessed, guess[i]) == NULL)
+                {
+                    for (j = 0; j < lenOfAns; j++)   /* if found the words, calcualte how many time we got right */
+                    {
+                        if (guess[i] == answer[j]) guessRight++;
+                    }
+                }
+                /* else guessed before and correct, skip */
+                
+                /* put the correct guess into guessed*/
+                guessed[n++] = guess[i];
+                guessed[n] = '\0';
+            }
+            /* No matther which one get first, quit the loop */
+            if (guessRight == lenOfAns || guessWrong == 7) i = lenOfGue;
+        }
+        printf("Round %d\n", round);
+        if (guessWrong >= 7) printf(LOSE);
+        else if (guessRight == lenOfAns) printf(WIN);
+        else printf(CHICKEN_OUT);
+    }
+   
+    return 0;
+}
+
